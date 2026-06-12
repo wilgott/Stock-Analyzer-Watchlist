@@ -1,0 +1,25 @@
+{
+  "run_id": "2026-06-12T22-18-30-124Z",
+  "started_at": "2026-06-12T22:18:30.124Z",
+  "finished_at": "2026-06-12T22:18:35.009Z",
+  "dry_run": false,
+  "requested_symbols": [],
+  "summary_path": "data/runs/latest.json",
+  "totals": {
+    "planned": 0,
+    "completed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "results": [
+    {
+      "id": "NVDA_NASDAQ",
+      "name": "NVIDIA Corporation",
+      "input": "NASDAQ:NVDA",
+      "status": "completed",
+      "report": "reports/2026-06-12-221830-nvda-nasdaq-report.html",
+      "source_packet": "data/source-packets/2026-06-12-221830-nvda-nasdaq.json",
+      "stance": "Buy"
+    }
+  ]
+}

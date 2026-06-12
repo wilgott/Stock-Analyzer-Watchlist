@@ -45,6 +45,22 @@ npm run add-stocks -- NASDAQ:NVDA
 
 The command validates provider data, updates `config/watchlist.json`, writes a source packet, and renders Markdown/HTML reports. If fundamentals are missing or restricted, it creates a monitor-only report instead of forcing a valuation.
 
+## Automate Scheduled Reports
+
+Use the watchlist runner when a cron job or AI agent should refresh existing coverage:
+
+```bash
+npm run reports:watchlist
+```
+
+The command reads enabled stocks from `config/watchlist.json`, reuses the same deterministic report pipeline, and writes a machine-readable run summary to `data/runs/latest.json`. Use `--dry-run` to preview work without calling providers:
+
+```bash
+npm run reports:watchlist -- --dry-run
+```
+
+For agent-operated workflows, read `AGENTS.md` and `docs/automation.md`. The recommended split is deterministic software for data fetching/calculations/report generation, then an AI agent for review, comparison, testing, commit, and push.
+
 ## Tune Recommendation Thresholds
 
 Recommendation labels are policy-driven, not hard-coded. Edit `config/analysis-policy.json` to change how much upside is required before a report classifies a stock as Buy, Hold / Accumulate, or Sell / Trim.
@@ -89,7 +105,9 @@ The current reports are useful internal drafts. Do not label a report CEO-ready 
 ```text
 config/                 Watchlist
 config/analysis-policy.json Recommendation thresholds
+data/runs/              Machine-readable automation run summaries
 data/source-packets/    Structured source evidence used by reports
+docs/                   Automation and operating notes
 public/                 Local watchlist UI
 reports/                Rendered HTML and Markdown reports
 scripts/                Report-generation workflow

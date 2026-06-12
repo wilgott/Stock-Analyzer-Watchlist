@@ -18,9 +18,9 @@
         "alpha_vantage": "NVDA",
         "massive": "NVDA"
       },
-      "validation_status": "provider_sec_verified_internal_draft_report",
-      "last_probe_at": "2026-06-12T18:34:24.477Z",
-      "last_report_path": "reports/2026-06-12-nvda-nasdaq-report.html"
+      "validation_status": "provider_verified_internal_draft_report",
+      "last_probe_at": "2026-06-12T22:18:30.164Z",
+      "last_report_path": "reports/2026-06-12-221830-nvda-nasdaq-report.html"
     }
   ]
 }
