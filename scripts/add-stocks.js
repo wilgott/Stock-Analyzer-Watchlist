@@ -17,9 +17,32 @@ const EXCHANGES = {
   XETRA: { mic: 'XETR', fmpSuffix: '.DE', alphaSuffix: '.DEX', massive: false, currency: 'EUR' },
 };
 
+const DEFAULT_ANALYSIS_POLICY = {
+  version: 1,
+  buy_min_base_low_upside_pct: 8,
+  accumulate_min_base_high_upside_pct: 8,
+  sell_max_base_high_upside_pct: -15,
+};
+
 const KNOWN_ISINS = {
   NVDA: 'US67066G1040',
 };
+
+function normalizeAnalysisPolicy(policy = {}) {
+  return {
+    version: Number(policy.version) || DEFAULT_ANALYSIS_POLICY.version,
+    buy_min_base_low_upside_pct: numberOrNull(policy.buy_min_base_low_upside_pct) ?? DEFAULT_ANALYSIS_POLICY.buy_min_base_low_upside_pct,
+    accumulate_min_base_high_upside_pct: numberOrNull(policy.accumulate_min_base_high_upside_pct) ?? DEFAULT_ANALYSIS_POLICY.accumulate_min_base_high_upside_pct,
+    sell_max_base_high_upside_pct: numberOrNull(policy.sell_max_base_high_upside_pct) ?? DEFAULT_ANALYSIS_POLICY.sell_max_base_high_upside_pct,
+  };
+}
+
+function loadAnalysisPolicy(projectDir = PROJECT_DIR) {
+  const policyPath = path.join(projectDir, 'config', 'analysis-policy.json');
+  if (!fs.existsSync(policyPath)) return normalizeAnalysisPolicy();
+
+  return normalizeAnalysisPolicy(JSON.parse(fs.readFileSync(policyPath, 'utf8')));
+}
 
 function parseSymbolInput(input) {
   const normalized = String(input).trim().toUpperCase();
@@ -559,7 +582,8 @@ function hasValidTtmMetric(financials, metricName) {
   return Number.isFinite(metric) && metric > 0 && Boolean(quality && quality.valid);
 }
 
-function buildAnalysis(security) {
+function buildAnalysis(security, policy = DEFAULT_ANALYSIS_POLICY) {
+  const recommendationPolicy = normalizeAnalysisPolicy(policy);
   const price = security.market.price;
   const shares = security.market.shares_outstanding;
   const netDebt = security.financials.net_debt;
@@ -572,6 +596,7 @@ function buildAnalysis(security) {
       stance: 'No Model Stance',
       confidence: 'Low',
       readinessLabel: 'Monitor-only research draft',
+      recommendationPolicy,
     };
   }
 
@@ -589,9 +614,9 @@ function buildAnalysis(security) {
   const lowUpside = ((baseLow / price) - 1) * 100;
   const highUpside = ((baseHigh / price) - 1) * 100;
   let stance = 'Hold';
-  if (lowUpside >= 15) stance = 'Buy';
-  else if (highUpside <= -15) stance = 'Sell / Trim';
-  else if (highUpside >= 15) stance = 'Hold / Accumulate on Pullbacks';
+  if (lowUpside >= recommendationPolicy.buy_min_base_low_upside_pct) stance = 'Buy';
+  else if (highUpside <= recommendationPolicy.sell_max_base_high_upside_pct) stance = 'Sell / Trim';
+  else if (highUpside >= recommendationPolicy.accumulate_min_base_high_upside_pct) stance = 'Hold / Accumulate on Pullbacks';
 
   return {
     mode: 'valued',
@@ -606,6 +631,7 @@ function buildAnalysis(security) {
     highUpside,
     confidence: 'Low',
     readinessLabel: 'Internal research draft',
+    recommendationPolicy,
     valuationMethod: useEarningsCrossCheck
       ? '70% TTM FCF bridge and 30% earnings-power cross-check'
       : `${metricName === 'ttm_free_cash_flow' ? 'TTM FCF' : 'TTM net income'} multiple bridge adjusted for net debt`,
@@ -914,8 +940,8 @@ function markdownToHtml(markdown, security, analysis) {
 `;
 }
 
-function generateReport(security) {
-  const analysis = buildAnalysis(security);
+function generateReport(security, policy = DEFAULT_ANALYSIS_POLICY) {
+  const analysis = buildAnalysis(security, policy);
   const markdown = reportMarkdown(security, analysis);
   return {
     analysis,
@@ -997,6 +1023,7 @@ function buildSourcePacket(security, report) {
         base_upside_high_pct: report.analysis.mode === 'monitor' ? null : report.analysis.highUpside,
         valuation_inputs: report.analysis.mode === 'monitor' ? null : report.analysis.valuationInputs,
         valuation_scenarios: report.analysis.mode === 'monitor' ? null : report.analysis.valuationScenarios,
+        recommendation_policy: report.analysis.recommendationPolicy,
       },
       broker_grade_gates: {
         source_reconciliation: 'partial',
@@ -1065,11 +1092,12 @@ async function main() {
   const inputs = process.argv.slice(2).map(parseSymbolInput);
   if (!inputs.length) throw new Error('Usage: npm run add-stocks -- NYSE:KLAR NASDAQ:CEG XETRA:SIE');
   const env = loadProjectEnv(PROJECT_DIR);
+  const policy = loadAnalysisPolicy(PROJECT_DIR);
   const secTickerMap = inputs.some((input) => input.massive) ? await fetchSecTickerMap() : null;
   const entries = [];
   for (const input of inputs) {
     const security = await fetchSecurity(input, env, secTickerMap);
-    const report = generateReport(security);
+    const report = generateReport(security, policy);
     writeText(reportPath(input, 'md'), report.markdown);
     writeText(reportPath(input, 'html'), report.html);
     const sourcePacket = saveSourcePacket(security, report);
@@ -1101,6 +1129,7 @@ module.exports = {
   extractSecCompanyFacts,
   findCikForSecEligibleInput,
   findCikFromSecTickerMap,
+  loadAnalysisPolicy,
   mergeSecFactsIntoFinancials,
   netDebtFromBalance,
   ttmMetricFromQuarterRows,

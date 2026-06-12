@@ -167,7 +167,7 @@
         }
       ],
       "analysis_model": {
-        "stance": "Hold / Accumulate on Pullbacks",
+        "stance": "Buy",
         "horizon": "12-18 months",
         "confidence": "Low",
         "valuation_method": "70% TTM FCF bridge and 30% earnings-power cross-check",
@@ -219,6 +219,12 @@
             "fair_value_per_share": 319.5723958548369,
             "upside_pct": 55.80537070588312
           }
+        },
+        "recommendation_policy": {
+          "version": 1,
+          "buy_min_base_low_upside_pct": 8,
+          "accumulate_min_base_high_upside_pct": 8,
+          "sell_max_base_high_upside_pct": -15
         },
         "readiness_label": "Internal research draft"
       },

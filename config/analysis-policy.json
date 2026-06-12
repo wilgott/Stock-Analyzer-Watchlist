@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "buy_min_base_low_upside_pct": 8,
+  "accumulate_min_base_high_upside_pct": 8,
+  "sell_max_base_high_upside_pct": -15
+}

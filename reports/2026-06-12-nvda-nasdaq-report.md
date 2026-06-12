@@ -8,20 +8,20 @@ MANGOS coverage member: NVIDIA Corporation. Educational purpose only. Model-impl
 
 | Item | View |
 | --- | ---: |
-| Model-implied stance | Hold / Accumulate on Pullbacks |
+| Model-implied stance | Buy |
 | Horizon | 12-18 months |
 | Current price | $205.11 |
 | Base fair-value range | $224-$278 |
 | Base upside/downside | +9% to +36% |
 | Confidence | Low |
 
-Nvidia remains a clean public AI infrastructure compounder in this screening model. The valuation is demanding, and the low end of the base range does not clear the tool's Buy threshold, but the high end still supports watchlist priority.
+Nvidia remains a clean public AI infrastructure compounder in this screening model. The valuation is demanding, but the low end of the base range clears the tool's configured 8% Buy threshold.
 
 ## Decision Drivers
 
 - TTM FCF is large and close to net income, which gives the valuation model better cash backing than most AI peers.
 - The base range sits above the current quote, but the bear case still shows meaningful downside if AI accelerator demand cools.
-- The model view is Hold / Accumulate on Pullbacks; this is a screening classification, not an instruction to buy.
+- The model view is Buy because base-low upside clears the configured 8% threshold; this is a screening classification, not an instruction to buy.
 
 ## Valuation Bridge
 

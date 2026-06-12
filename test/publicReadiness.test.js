@@ -20,6 +20,7 @@ test('public repository documentation exists and explains safe setup', () => {
   assert.match(readme, /Educational purpose only/);
   assert.match(readme, /not investment advice/i);
   assert.match(readme, /Data sources/);
+  assert.match(readme, /analysis-policy\.json/);
   assert.match(readme, /Broker-grade roadmap/);
   assert.match(contributing, /Do not commit secrets/);
   assert.match(security, /Do not open a public issue with secrets/);

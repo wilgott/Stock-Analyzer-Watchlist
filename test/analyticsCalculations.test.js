@@ -6,6 +6,7 @@ const test = require('node:test');
 const {
   buildSourcePacket,
   generateReport,
+  loadAnalysisPolicy,
   netDebtFromBalance,
   ttmMetricFromQuarterRows,
 } = require('../scripts/add-stocks');
@@ -131,24 +132,56 @@ test('source packet includes reproducible valuation inputs when a report is valu
   assert.equal(analysisModel.valuation_inputs.shares_outstanding, security.market.shares_outstanding);
   assert.equal(analysisModel.valuation_inputs.net_debt, security.financials.net_debt);
   assert.deepEqual(analysisModel.valuation_inputs.multiples, report.analysis.multiples);
+  assert.deepEqual(analysisModel.recommendation_policy, report.analysis.recommendationPolicy);
   assert.ok(analysisModel.valuation_scenarios.base_low.fair_value_per_share);
 });
 
-test('checked-in Nvidia source packet stance matches its own upside threshold rule', () => {
+test('analysis policy is configurable and drives buy threshold decisions', () => {
+  const defaultPolicy = loadAnalysisPolicy(root);
+  const defaultReport = generateReport(baseSecurity({
+    market: {
+      price: 100,
+      market_cap: 1_000_000_000,
+      shares_outstanding: 30_000_000,
+    },
+  }), defaultPolicy);
+
+  assert.equal(defaultPolicy.buy_min_base_low_upside_pct, 8);
+  assert.equal(defaultReport.analysis.stance, 'Buy');
+  assert.equal(defaultReport.analysis.recommendationPolicy.buy_min_base_low_upside_pct, 8);
+
+  const conservativeReport = generateReport(baseSecurity({
+    market: {
+      price: 100,
+      market_cap: 1_000_000_000,
+      shares_outstanding: 30_000_000,
+    },
+  }), {
+    ...defaultPolicy,
+    buy_min_base_low_upside_pct: 25,
+  });
+
+  assert.equal(conservativeReport.analysis.stance, 'Hold / Accumulate on Pullbacks');
+  assert.equal(conservativeReport.analysis.recommendationPolicy.buy_min_base_low_upside_pct, 25);
+});
+
+test('checked-in Nvidia source packet stance matches its own configurable threshold policy', () => {
   const packet = JSON.parse(fs.readFileSync(path.join(root, 'data/source-packets/2026-06-12-nvda-nasdaq.json'), 'utf8'));
   const security = packet.securities[0];
   const analysis = security.analysis_model;
+  const policy = analysis.recommendation_policy;
   const lowUpside = Number(analysis.base_upside_low_pct);
   const highUpside = Number(analysis.base_upside_high_pct);
 
+  assert.ok(policy);
   assert.ok(Number.isFinite(lowUpside));
   assert.ok(Number.isFinite(highUpside));
 
-  if (lowUpside >= 15) {
+  if (lowUpside >= policy.buy_min_base_low_upside_pct) {
     assert.equal(analysis.stance, 'Buy');
-  } else if (highUpside <= -15) {
+  } else if (highUpside <= policy.sell_max_base_high_upside_pct) {
     assert.equal(analysis.stance, 'Sell / Trim');
-  } else if (highUpside >= 15) {
+  } else if (highUpside >= policy.accumulate_min_base_high_upside_pct) {
     assert.equal(analysis.stance, 'Hold / Accumulate on Pullbacks');
   } else {
     assert.equal(analysis.stance, 'Hold');

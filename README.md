@@ -45,6 +45,22 @@ npm run add-stocks -- NASDAQ:NVDA
 
 The command validates provider data, updates `config/watchlist.json`, writes a source packet, and renders Markdown/HTML reports. If fundamentals are missing or restricted, it creates a monitor-only report instead of forcing a valuation.
 
+## Tune Recommendation Thresholds
+
+Recommendation labels are policy-driven, not hard-coded. Edit `config/analysis-policy.json` to change how much upside is required before a report classifies a stock as Buy, Hold / Accumulate, or Sell / Trim.
+
+Default policy:
+
+```json
+{
+  "buy_min_base_low_upside_pct": 8,
+  "accumulate_min_base_high_upside_pct": 8,
+  "sell_max_base_high_upside_pct": -15
+}
+```
+
+Each generated source packet stores the policy used for that run, so future readers can reproduce why a report showed a specific stance.
+
 ## Data sources
 
 The app is designed to combine multiple source types:
@@ -72,6 +88,7 @@ The current reports are useful internal drafts. Do not label a report CEO-ready 
 
 ```text
 config/                 Watchlist
+config/analysis-policy.json Recommendation thresholds
 data/source-packets/    Structured source evidence used by reports
 public/                 Local watchlist UI
 reports/                Rendered HTML and Markdown reports
