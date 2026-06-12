@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stock Detail</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <a class="back-link" href="/">Back to watchlist</a>
+
+      <section class="hero detail-hero">
+        <div>
+          <p class="eyebrow">Company detail</p>
+          <h1 id="stock-title">Stock Detail</h1>
+          <p id="stock-subtitle" class="lede">Loading configured security...</p>
+        </div>
+        <div class="status-panel">
+          <span class="status-label">Latest view</span>
+          <div id="validation-status" class="provider-status">Loading...</div>
+          <div id="latest-summary" class="summary-stack">Loading latest report...</div>
+        </div>
+      </section>
+
+      <aside class="disclaimer-banner" role="note">
+        Educational purpose only. This tool supports research workflows and is not investment advice, a personalized recommendation, or a suitability assessment.
+      </aside>
+
+      <section class="detail-grid compact-detail">
+        <article class="card visual-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Valuation</p>
+              <h2>Fair value range</h2>
+            </div>
+          </div>
+          <div id="fair-value-visual" class="range-card"></div>
+        </article>
+
+        <article class="card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Reference</p>
+              <h2>Technical details</h2>
+            </div>
+          </div>
+          <dl id="identity-list" class="definition-list"></dl>
+        </article>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Archive</p>
+            <h2>Report history</h2>
+          </div>
+          <p class="section-note">Newest first. Use this to compare how the recommendation changes between runs.</p>
+        </div>
+        <div id="report-history" class="report-history">Loading report history...</div>
+      </section>
+    </main>
+
+    <script src="/assets/stock.js"></script>
+  </body>
+</html>

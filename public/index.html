@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stock Analyzer Watchlist</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero watchlist-hero">
+        <div>
+          <p class="eyebrow">Local research control</p>
+          <h1>Stock Analyzer Watchlist</h1>
+          <p class="lede">Manage the config that drives coverage probes, source packets, and company reports.</p>
+        </div>
+        <div class="status-panel provider-compact" aria-live="polite">
+          <span class="status-label">Provider keys</span>
+          <div id="provider-status" class="provider-status">Loading...</div>
+        </div>
+      </section>
+
+      <aside class="disclaimer-banner" role="note">
+        Educational purpose only. This tool supports research workflows and is not investment advice, a personalized recommendation, or a suitability assessment.
+      </aside>
+
+      <details class="card add-card" aria-labelledby="add-heading">
+        <summary class="add-stock-summary">
+          <div>
+            <p class="eyebrow">Config editor</p>
+            <h2 id="add-heading">Add a stock</h2>
+          </div>
+          <span class="summary-action">Open form</span>
+        </summary>
+
+        <div class="add-stock-body">
+          <p class="section-note">ISIN is required. MIC makes the listing unambiguous.</p>
+          <form id="add-security-form" class="security-form">
+            <label>
+              <span>Company name</span>
+              <input name="name" autocomplete="off" placeholder="NVIDIA Corporation">
+            </label>
+            <label>
+              <span>ISIN</span>
+              <input name="isin" required autocomplete="off" placeholder="NO0010234552">
+            </label>
+            <label>
+              <span>MIC</span>
+              <input name="mic" autocomplete="off" placeholder="XOSL">
+            </label>
+            <label>
+              <span>Local ticker</span>
+              <input name="local_ticker" autocomplete="off" placeholder="AKER">
+            </label>
+            <label>
+              <span>Currency</span>
+              <input name="currency" autocomplete="off" placeholder="NOK">
+            </label>
+            <label>
+              <span>Report profile</span>
+              <select name="report_profile">
+                <option value="holding_company">Holding company</option>
+                <option value="alternative_asset_manager">Alternative asset manager</option>
+                <option value="general_equity">General equity</option>
+              </select>
+            </label>
+            <button type="submit" class="primary-button">Add stock</button>
+          </form>
+          <p id="form-message" class="form-message" role="status"></p>
+        </div>
+      </details>
+
+      <section class="card" aria-labelledby="watchlist-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Tracked securities</p>
+            <h2 id="watchlist-heading">Report list</h2>
+          </div>
+          <button id="refresh-button" type="button" class="ghost-button">Refresh</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>ISIN</th>
+                <th>MIC</th>
+                <th>Ticker</th>
+                <th>Recommendation</th>
+                <th>Status</th>
+                <th>Last report</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="watchlist-body">
+              <tr>
+                <td colspan="8">Loading watchlist...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="empty-row-template">
+      <tr>
+        <td colspan="8" class="empty-state">No stocks configured yet.</td>
+      </tr>
+    </template>
+
+    <script src="/assets/app.js"></script>
+  </body>
+</html>

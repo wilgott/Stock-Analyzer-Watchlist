@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "securities": [
+    {
+      "id": "NVDA_NASDAQ",
+      "name": "NVIDIA Corporation",
+      "enabled": true,
+      "report_profile": "general_equity",
+      "identifiers": {
+        "isin": "US67066G1040",
+        "mic": "XNAS",
+        "euronext_product_id": null,
+        "local_ticker": "NVDA",
+        "currency": "USD"
+      },
+      "provider_symbols": {
+        "fmp": "NVDA",
+        "alpha_vantage": "NVDA",
+        "massive": "NVDA"
+      },
+      "validation_status": "provider_sec_verified_internal_draft_report",
+      "last_probe_at": "2026-06-12T18:34:24.477Z",
+      "last_report_path": "reports/2026-06-12-nvda-nasdaq-report.html"
+    }
+  ]
+}

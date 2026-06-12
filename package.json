@@ -1,0 +1,13 @@
+{
+  "name": "openai-pm-stock-analyzer",
+  "version": "0.1.0",
+  "description": "Local-first validated stock research workspace for source-backed equity analysis.",
+  "private": false,
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "add-stocks": "node scripts/add-stocks.js",
+    "start": "node src/server.js",
+    "test": "node --test"
+  }
+}

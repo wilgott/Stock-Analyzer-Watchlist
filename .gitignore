@@ -1,0 +1,14 @@
+.env
+.env.local
+.env.*.local
+
+.claude/
+.codex/
+.superpowers/
+
+node_modules/
+npm-debug.log*
+
+data/raw/
+*.tmp
+.DS_Store

@@ -1,0 +1,236 @@
+{
+  "generated_at": "2026-06-12T18:34:24.477Z",
+  "intended_use": "research_aid_only",
+  "jurisdiction_note": "Educational purpose only; not investment advice, not a personalized recommendation, and not a suitability assessment.",
+  "base_currency": "USD",
+  "run_scope": "mangos_public_listing_report",
+  "group": "MANGOS",
+  "securities": [
+    {
+      "security_id": "NVDA_NASDAQ",
+      "legal_name": "NVIDIA Corporation",
+      "instrument_status": "listed",
+      "instrument_validation_status": "provider_and_sec_confirmed",
+      "identifiers": {
+        "exchange": "NASDAQ Global Select",
+        "exchange_mic": "XNAS",
+        "local_ticker": "NVDA",
+        "isin": "US67066G1040",
+        "currency": "USD",
+        "cik": "0001045810"
+      },
+      "sources": [
+        {
+          "source_id": "FMP_PROFILE_NVDA_2026_06_12",
+          "source_type": "market_data",
+          "publisher": "Financial Modeling Prep",
+          "title": "fmp profile - NVDA",
+          "url": "https://financialmodelingprep.com/stable/profile?symbol=NVDA",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        },
+        {
+          "source_id": "FMP_QUOTE_NVDA_2026_06_12",
+          "source_type": "market_data",
+          "publisher": "Financial Modeling Prep",
+          "title": "fmp quote - NVDA",
+          "url": "https://financialmodelingprep.com/stable/quote?symbol=NVDA",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        },
+        {
+          "source_id": "FMP_INCOME_NVDA_2026_06_12",
+          "source_type": "market_data",
+          "publisher": "Financial Modeling Prep",
+          "title": "fmp income - NVDA",
+          "url": "https://financialmodelingprep.com/stable/income-statement?symbol=NVDA&period=quarter&limit=4",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        },
+        {
+          "source_id": "FMP_BALANCE_NVDA_2026_06_12",
+          "source_type": "market_data",
+          "publisher": "Financial Modeling Prep",
+          "title": "fmp balance - NVDA",
+          "url": "https://financialmodelingprep.com/stable/balance-sheet-statement?symbol=NVDA&period=quarter&limit=4",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        },
+        {
+          "source_id": "FMP_CASHFLOW_NVDA_2026_06_12",
+          "source_type": "market_data",
+          "publisher": "Financial Modeling Prep",
+          "title": "fmp cashflow - NVDA",
+          "url": "https://financialmodelingprep.com/stable/cash-flow-statement?symbol=NVDA&period=quarter&limit=4",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        },
+        {
+          "source_id": "ALPHA_QUOTE_NVDA_2026_06_12",
+          "source_type": "market_data",
+          "publisher": "Alpha Vantage",
+          "title": "alpha quote - NVDA",
+          "url": "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=NVDA",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        },
+        {
+          "source_id": "MASSIVE_DETAILS_NVDA_2026_06_12",
+          "source_type": "market_data",
+          "publisher": "Massive / Polygon",
+          "title": "massive details - NVDA",
+          "url": "https://api.polygon.io/v3/reference/tickers/NVDA",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        },
+        {
+          "source_id": "MASSIVE_PREV_NVDA_2026_06_12",
+          "source_type": "market_data",
+          "publisher": "Massive / Polygon",
+          "title": "massive prev - NVDA",
+          "url": "https://api.polygon.io/v2/aggs/ticker/NVDA/prev?adjusted=true",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        },
+        {
+          "source_id": "SEC_SUBMISSIONS_NVDA_2026_06_12",
+          "source_type": "filing",
+          "publisher": "U.S. Securities and Exchange Commission",
+          "title": "sec submissions - NVDA",
+          "url": "https://data.sec.gov/submissions/CIK0001045810.json",
+          "accessed_at": "2026-06-12T18:34:24.477Z",
+          "status": 200,
+          "license_note": "Stored URL contains no API key."
+        }
+      ],
+      "metrics": [
+        {
+          "metric_id": "current_share_price",
+          "label": "Latest quote / provider price",
+          "normalized_value": 205.11,
+          "unit": "currency",
+          "currency": "USD",
+          "source_a_id": "FMP_QUOTE_NVDA_2026_06_12",
+          "source_b_id": "ALPHA_QUOTE_NVDA_2026_06_12",
+          "review_note": "Provider values can differ between latest quote and previous close; variance is shown in the report where material."
+        },
+        {
+          "metric_id": "ttm_free_cash_flow",
+          "label": "TTM free cash flow",
+          "normalized_value": 119076000000,
+          "unit": "currency",
+          "currency": "USD",
+          "formula": "Sum of latest four quarterly freeCashFlow rows from FMP."
+        },
+        {
+          "metric_id": "ttm_net_income",
+          "label": "TTM net income",
+          "normalized_value": 159613000000,
+          "unit": "currency",
+          "currency": "USD",
+          "formula": "Sum of latest four quarterly netIncome rows from FMP."
+        },
+        {
+          "metric_id": "base_fair_value_range",
+          "label": "Model-implied base fair value range",
+          "normalized_value": [
+            224.07223070888898,
+            278.2554188514099
+          ],
+          "unit": "currency_per_share",
+          "currency": "USD",
+          "formula": "70% TTM FCF bridge and 30% earnings-power cross-check"
+        },
+        {
+          "metric_id": "net_debt",
+          "label": "Net debt",
+          "normalized_value": -423000000,
+          "unit": "currency",
+          "currency": "USD",
+          "formula": "Total debt minus cash and short-term investments."
+        },
+        {
+          "metric_id": "shares_outstanding",
+          "label": "Diluted shares / shares outstanding used by model",
+          "normalized_value": 24221000000,
+          "unit": "shares",
+          "currency": null,
+          "formula": "Share count used to convert enterprise value bridge to per-share value."
+        }
+      ],
+      "analysis_model": {
+        "stance": "Hold / Accumulate on Pullbacks",
+        "horizon": "12-18 months",
+        "confidence": "Low",
+        "valuation_method": "70% TTM FCF bridge and 30% earnings-power cross-check",
+        "base_fair_value_low": 224.07223070888898,
+        "base_fair_value_high": 278.2554188514099,
+        "base_upside_low_pct": 9.244907956164482,
+        "base_upside_high_pct": 35.661556653215285,
+        "valuation_inputs": {
+          "metric_name": "ttm_free_cash_flow",
+          "metric_label": "TTM FCF",
+          "metric_value": 119076000000,
+          "earnings_cross_check_value": 159613000000,
+          "blend_weights": {
+            "primary_metric": 0.7,
+            "earnings_cross_check": 0.3
+          },
+          "shares_outstanding": 24221000000,
+          "net_debt": -423000000,
+          "current_price": 205.11,
+          "multiples": {
+            "bearMultiple": 35,
+            "baseLowMultiple": 45,
+            "baseHighMultiple": 55,
+            "bullMultiple": 65,
+            "baseLowEarningsMultiple": 35,
+            "baseHighEarningsMultiple": 45
+          }
+        },
+        "valuation_scenarios": {
+          "bear": {
+            "multiple": 35,
+            "fair_value_per_share": 172.08550431443804,
+            "upside_pct": -16.10087059897712
+          },
+          "base_low": {
+            "multiple": 45,
+            "earnings_multiple": 35,
+            "fair_value_per_share": 224.0722307088891,
+            "upside_pct": 9.244907956164549
+          },
+          "base_high": {
+            "multiple": 55,
+            "earnings_multiple": 45,
+            "fair_value_per_share": 278.2554188514101,
+            "upside_pct": 35.66155665321537
+          },
+          "bull": {
+            "multiple": 65,
+            "fair_value_per_share": 319.5723958548369,
+            "upside_pct": 55.80537070588312
+          }
+        },
+        "readiness_label": "Internal research draft"
+      },
+      "broker_grade_gates": {
+        "source_reconciliation": "partial",
+        "dcf": "missing",
+        "relative_valuation": "missing",
+        "sotp_if_applicable": "not yet assessed",
+        "wacc_terminal_growth_sensitivity": "missing",
+        "peer_consensus_context": "missing",
+        "variant_view": "partial"
+      }
+    }
+  ]
+}
